@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Spring Boot Thymeleaf Hello World Example</title>
+
+</head>
+
+<body>
+
+<form name='f' th:action="@{/weatherboard}"  th:object="${locationForm}" method='POST'>
+    <table>
+        <tr>
+            <td>Select Location:</td>
+            <td>
+                <select th:field="*{selectedLocation}">
+                    <option value=""> -- </option>
+                    <option th:each="location : ${locations}"
+                            th:value="${location.code}"
+                            th:utext="${location.city}"/>
+                </select>
+
+            </td>
+        </tr>
+
+        <tr>
+            <td><input name="submit" type="submit" value="submit" /></td>
+        </tr>
+    </table>
+</form>
+
+<br/><br/>
+<div>
+    <table border="1">
+        <tr>
+            <th>Date</th>
+            <th>Summary</th>
+            <th>temperature</th>
+            <th>dewPoint</th>
+            <th>humidity</th>
+            <th>pressure</th>
+            <th>windSpeed</th>
+        </tr>
+        <tr th:each ="detail : ${details}">
+            <td th:utext="${detail.createdAt}">...</td>
+            <td th:utext="${detail.data.currently.summary}">...</td>
+            <td th:utext="${detail.data.currently.temperature}">...</td>
+            <td th:utext="${detail.data.currently.dewPoint}">...</td>
+            <td th:utext="${detail.data.currently.humidity}">...</td>
+            <td th:utext="${detail.data.currently.pressure}">...</td>
+            <td th:utext="${detail.data.currently.windSpeed}">...</td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>
